@@ -1,6 +1,7 @@
 package com.android.common.utils;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import androidx.core.content.FileProvider;
 
@@ -134,6 +136,26 @@ public class Utility {
             return inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
         }
         return false;
+    }
+
+    /**
+     * 获取应用进程名称
+     */
+    public static String getProcessName(Context context, int pid) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (am == null) {
+            return null;
+        }
+        List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
+        if (runningApps == null) {
+            return null;
+        }
+        for (ActivityManager.RunningAppProcessInfo procInfo : runningApps) {
+            if (procInfo.pid == pid) {
+                return procInfo.processName;
+            }
+        }
+        return null;
     }
 
 }

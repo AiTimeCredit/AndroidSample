@@ -59,6 +59,7 @@
         android:required="false" />
 
     <application
+        android:name=".SampleApplication"
         android:allowBackup="true"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"

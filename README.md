@@ -109,8 +109,22 @@ Android demo
 [Kotlin 中文网](https://www.kotlincn.net/)
 [Android 基础入门教程](https://www.runoob.com/w3cnote/android-tutorial-intro.html)
 [Android 完整思维导图](https://www.runoob.com/wp-content/uploads/2015/06/androidmap.pdf)
+[测试API](https://gank.io/api)
 
 ## 开发
 [忽略文件](./.gitignore)
 [混淆配置](./app/proguard-rules.pro)
+
+## 颜色
+Android 中的颜色值通常遵循 `RGB/ARGB` 标准，使用时通常以 `#` 字符开头的8位16进制表示。其中`ARGB` 依次代表透明度（Alpha）、红色(Red)、绿色(Green)、蓝色(Blue)，取值范围为`0 ~ 255`（即16进制的`0x00 ~ 0xff`）。
+`A` 从 `0x00` 到 `0xff` 表示从透明到不透明，`RGB` 从 `0x00` 到 `0xff` 表示颜色从浅到深。当 `RGB` 全取最小值(`0`或`0x000000`)时颜色为黑色，全取最大值(`255`或`0xffffff`)时颜色为白色。颜色透明度表如下：
+![颜色透明度表](./screenshots/颜色透明度.png)
+
+## 思维导图
+![Java基础](./screenshots/Java基础.png)
+![Java并发](./screenshots/Java并发.png)
+![Android基础](./screenshots/Android基础.png)
+![Android进阶](./screenshots/Android进阶.png)
+![Kotlin](./screenshots/Kotlin.png)
+![设计模式](./screenshots/设计模式.png)
 

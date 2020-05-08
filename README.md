@@ -14,6 +14,7 @@ Android demo
  - [ContentProvider 详解](https://blog.csdn.net/carson_ho/article/details/76101093)
  - [BroadcastReceiver 详解](https://blog.csdn.net/carson_ho/article/details/52973504)
  - [WebView 详解](https://blog.csdn.net/carson_ho/article/details/52693322)
+ - [Jetpack 详解](https://www.jianshu.com/p/f32c8939338d)
 
 ## Android 框架
 ### Jetpack
@@ -30,7 +31,7 @@ Android demo
 ### 网络请求封装
  - [OkGo](https://github.com/jeasonlzy/okhttp-OkGo)
  - [RxHttp](https://github.com/liujingxing/okhttp-RxHttp)
-[RxHttpUtils](https://github.com/lygttpod/RxHttpUtils)
+ - [RxHttpUtils](https://github.com/lygttpod/RxHttpUtils)
 
 ### 图片加载
  - [Glide](https://github.com/bumptech/glide)

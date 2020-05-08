@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="loginViewModel"
+            type="com.android.sample.ui.login.LoginViewModel" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_launcher" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_login_frame" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/login_phone_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginEnd="45dp"
+                    android:afterTextChanged="@{loginViewModel.afterTextChanged}"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_label_phone"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/user_auth_label_phone"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:minHeight="45dp"
+                    android:text="@={loginViewModel.phoneNum}"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="16sp" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_login_frame" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/login_verifycode_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginEnd="120dp"
+                    android:afterTextChanged="@{loginViewModel.afterTextChanged}"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_label_sms"
+                    android:drawablePadding="12dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/user_auth_label_sms_code"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:minHeight="45dp"
+                    android:text="@={loginViewModel.verifyCode}"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/login_verify_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginEnd="45dp"
+                    android:background="@drawable/bg_code_get"
+                    android:gravity="center"
+                    android:minWidth="55dp"
+                    android:minHeight="20dp"
+                    android:onClick="@{loginViewModel::performViewClicks}"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="@{loginViewModel.verifyButtonText}"
+                    android:textColor="@android:color/white"
+                    android:textSize="9sp"
+                    tools:ignore="SmallSp"
+                    tools:text="@string/verify_code_get" />
+
+            </FrameLayout>
+
+            <!--用户服务协议-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:minHeight="45dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <CheckBox
+                    android:id="@+id/user_agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:checked="@={loginViewModel.isAgreementsChecked}"
+                    android:text="@null"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="12sp"
+                    tools:checked="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4dp"
+                    android:padding="0dp"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="12sp"
+                    app:agreementPrefix="@{@string/agreement_prefix}"
+                    app:agreements="@{loginViewModel.agreements}"
+                    tools:text="@string/agreement_prefix" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/login_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginEnd="65dp"
+                android:layout_marginBottom="45dp"
+                android:background="@drawable/selector_submit_button_round"
+                android:enabled="@{loginViewModel.buttonEnable}"
+                android:onClick="@{loginViewModel::performViewClicks}"
+                android:text="@{loginViewModel.actionBtnText}"
+                android:textColor="@color/button_text"
+                tools:text="@string/login" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

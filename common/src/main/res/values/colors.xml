@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorHighlight">#2448E8</color>
+    <color name="colorTextHint">#BABED1</color>
+    <color name="colorTextPrimary">#333333</color>
+    <color name="colorDivider">#38DEE7F3</color>
+    <color name="colorRipple">#1F000000</color>
+
+    <!-- 整体背景颜色 -->
+    <color name="window_background">#F5F5F5</color>
+    <!-- Button背景不可点击颜色 -->
+    <color name="button_unenabled">#4D2248E8</color>
+    <!-- Button文本信息字体颜色 -->
+    <color name="button_text">#FFFFFF</color>
+    <!-- Button背景渐变颜色 -->
+    <color name="button_start_color">#2248E8</color>
+    <!-- Button背景渐变颜色 -->
+    <color name="button_end_color">#7C3FF0</color>
+
+</resources>

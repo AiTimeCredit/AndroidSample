@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'     // 应用程序模块
+
+android {
+    compileSdkVersion 29                    // 编译SDK版本
+    buildToolsVersion "29.0.3"              // 构建工具版本
+
+    defaultConfig {                         // Android默认配置
+        minSdkVersion 19                    // 最小SDK版本
+        targetSdkVersion 29                 // 目标版本
+        versionCode 1                       // 版本号
+        versionName "1.0"                   // 版本名称
+        applicationId "com.android.sample"  // 包名
+
+        flavorDimensions "sample"           // 风味维度
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+//        ndk {                               // NDK配置
+//            abiFilters 'armeabi', "armeabi-v7a", "arm64-v8a", "x86_64"
+//        }
+    }
+
+    compileOptions {                        // Java编译选项(JDK 1.8)
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {                           // Lint检查选项
+        abortOnError false                  // lint遇到错误时是否中止构建
+        checkReleaseBuilds false            // 构建Release版本时是否开启lint检测
+    }
+
+    dataBinding {                           // DataBinding配置(启用DataBinding)
+        enabled = true
+    }
+
+    signingConfigs {                        // 签名信息配置
+
+        sample {                            // 签名信息(名称)
+            storeFile file('./sample.jks')  // 签名文件
+            storePassword '123456'          // 签名密码
+            keyAlias 'sample'               // Key的别名
+            keyPassword '123456'            // Key的密码
+        }
+
+    }
+
+    buildTypes {                            // 构建类型
+        release {
+            debuggable false                // 是否开启调试模式
+            minifyEnabled true              // 是否开启代码混淆
+            zipAlignEnabled true            // 是否开启Zipalign优化
+            shrinkResources true            // 是否移除无用的资源文件
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.sample // 指定签名
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.sample
+        }
+    }
+
+    productFlavors {                            // ProductFlavors配置
+
+        sample {}
+
+    }
+
+}
+
+dependencies {                                  // 依赖配置
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // PhotoView(https://github.com/chrisbanes/PhotoView)
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    implementation project(':common')
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}

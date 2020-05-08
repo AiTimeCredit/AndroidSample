@@ -1,0 +1,39 @@
+<resources>
+
+    <string name="app_name">AndroidSample</string>
+
+    <string name="title_mvp">MVP</string>
+    <string name="title_mvvm">MVVM</string>
+    <string name="title_databinding">DataBinding</string>
+
+    <string name="agreement_login">Terms of service</string>
+    <string name="agreement_privacy">Privacy policy</string>
+    <string name="agreement_message">Please read and agree&#160;</string>
+
+    <string name="menu_download">Download</string>
+    <string name="menu_share">Share</string>
+
+    <string name="and">and</string>
+    <string name="login">Login</string>
+    <string name="login_successful">Login successful</string>
+    <string name="verify_code_get">SMS</string>
+    <string name="verify_code_count_down">%d s</string>
+    <string name="user_auth_label_phone">Phone Number</string>
+    <string name="user_auth_label_sms_code">SMS Code</string>
+    <string name="verify_code_send_success">Verification code sent successfully</string>
+    <string name="user_auth_tips_input_phone">Please check and enter a correct mobile phone number!</string>
+    <string name="user_auth_tips_input_smscode">Please enter the SMS verification code!</string>
+    <string name="user_auth_tips_error_phone">Please enter the correct cell phone number!</string>
+    <string name="user_auth_contains_phone">Phone Number</string>
+    <string name="user_auth_contains_vcode">Verification Code</string>
+    <string name="agreement_prefix">Click to confirm that you have read and agreed to the&#160;</string>
+
+    <string name="picture_loading">图片正在加载中，请稍后&#8230;</string>
+    <string name="picture_save_ask">将图片保存至手机？</string>
+    <string name="picture_save_to">图片已保存至 %s</string>
+    <string name="download_failed">图片下载失败</string>
+    <string name="permission_title">权限请求</string>
+    <string name="permission_message">权限被拒绝，请在设置里面开启相应权限，若无相应权限会影响使用</string>
+    <string name="permission_denied">权限被拒绝，无法继续操作</string>
+
+</resources>

@@ -32,3 +32,7 @@ allprojects {           // 项目模块构建配置
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

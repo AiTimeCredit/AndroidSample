@@ -156,6 +156,7 @@ public class LoginViewModel extends BaseViewModel<LoginModel> implements SafetyH
     @Override
     public void onDestroy(@NonNull LifecycleOwner owner) {
         super.onDestroy(owner);
+        handler.clear();
         if (countDownTimer != null) {
             countDownTimer.cancel();
             countDownTimer = null;

@@ -5,6 +5,7 @@ Android demo
  - [Android 动画总结](https://blog.csdn.net/carson_ho/article/details/79860980)
  - [Android 消息机制](https://xiaozhuanlan.com/topic/9026158374)
  - [Android 性能优化](https://blog.csdn.net/carson_ho/article/details/79708444)
+ - [Android 内存泄露](https://blog.csdn.net/carson_ho/article/details/79407707)
  - [Android 进程间通信](https://www.jianshu.com/p/96062c549b2a)
  - [Android 事件分发机制](https://blog.csdn.net/carson_ho/article/details/54136311)
  - [Fragment 生命周期](https://juejin.im/post/5c2df25be51d451d46035449)

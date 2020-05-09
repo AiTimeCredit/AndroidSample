@@ -16,8 +16,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitManage {
 
     private static final String BASE_URL = "http://gank.io/";
+    private static final String BASE_URL_LOGIN = "http://mobile.abcash.test.youyuwo.com/";
 
     private static Retrofit retrofit;
+    private static Retrofit loginRetrofit;
     private static GankApiService gankApiService;
 
     public static OkHttpClient getOkHttpClient() {
@@ -41,6 +43,18 @@ public class RetrofitManage {
                     .build();
         }
         return retrofit;
+    }
+
+    public static Retrofit getLoginRetrofit() {
+        if (loginRetrofit == null) {
+            loginRetrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL_LOGIN)
+                    .client(getOkHttpClient())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+        }
+        return loginRetrofit;
     }
 
     public static GankApiService getGankApiService() {

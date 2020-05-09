@@ -5,7 +5,7 @@ import com.android.common.entity.GankEntity;
 import com.android.common.http.ObservableTransformerAsync;
 import com.android.common.http.ResponseEntity;
 import com.android.common.http.RetrofitManage;
-import com.android.common.mvvm.IModel;
+import com.android.common.mvvm.BaseModel;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import io.reactivex.Observable;
 /**
  * Gank data model
  */
-public class GankDataModel implements IModel {
+public class GankDataModel extends BaseModel {
 
     public Observable<ResponseEntity<List<BannerInfo>>> getGankBanners() {
         return RetrofitManage.getGankApiService()

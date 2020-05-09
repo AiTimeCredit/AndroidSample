@@ -11,6 +11,8 @@ public class ResponseEntity<T> {
 
     @SerializedName(value = "status")
     private int status;
+    @SerializedName(value = "code")
+    private int code;
     @SerializedName(value = "desc")
     private String desc;
     @SerializedName(value = "data")
@@ -28,6 +30,14 @@ public class ResponseEntity<T> {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getDesc() {
@@ -74,7 +84,7 @@ public class ResponseEntity<T> {
      * 判断是否成功
      */
     public boolean isSuccessful() {
-        return status == 100;
+        return code == 1 || status == 100;
     }
 
     @NonNull

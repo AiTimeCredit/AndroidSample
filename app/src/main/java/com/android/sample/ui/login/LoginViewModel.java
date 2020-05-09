@@ -7,10 +7,15 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.common.http.BaseObserver;
+import com.android.common.http.ResponseEntity;
 import com.android.common.mvvm.BaseViewModel;
 import com.android.common.utils.SafetyHandler;
+import com.android.common.utils.ToastUtil;
 import com.android.sample.R;
 import com.android.sample.entity.Agreement;
+import com.android.sample.entity.LoginRecord;
+import com.android.sample.entity.VerifyCode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,14 +96,40 @@ public class LoginViewModel extends BaseViewModel<LoginModel> implements SafetyH
             Toast.makeText(getApplication(), R.string.user_auth_tips_error_phone, Toast.LENGTH_SHORT).show();
             return;
         }
-        // 省略网络请求
-        loading.setValue(true);
-        handler.postDelayed(() -> {
-            loading.setValue(false);
-            waitingCode.set(true);
-            countDownTimer.start();
-            Toast.makeText(getApplication(), R.string.verify_code_send_success, Toast.LENGTH_SHORT).show();
-        }, 1200);
+        getModel()
+                .sendSmsCode(phone)
+                .subscribe(new BaseObserver<ResponseEntity<VerifyCode>>() {
+                    @Override
+                    protected void onStart() {
+                        super.onStart();
+                        loading.setValue(true);
+                    }
+
+                    @Override
+                    protected void doOnNext(@NonNull ResponseEntity<VerifyCode> entity) {
+                        loading.setValue(false);
+                        if (entity.isSuccessful()) {
+                            VerifyCode verifyCode = entity.getData();
+                            if (verifyCode == null || "1".equals(verifyCode.getStatusCode())) {
+                                waitingCode.set(true);
+                                countDownTimer.start();
+                                ToastUtil.showToast(R.string.verify_code_send_success);
+                                return;
+                            }
+                            if ("2".equals(verifyCode.getStatusCode()) && !TextUtils.isEmpty(verifyCode.getBase64Img())) {
+                                ToastUtil.showToast("需要图形验证码，请更换输入的手机号");
+                            }
+                        } else {
+                            ToastUtil.showToast(entity.getDesc());
+                        }
+                    }
+
+                    @Override
+                    protected void doOnError(@NonNull Throwable t) {
+                        loading.setValue(false);
+                        ToastUtil.showToast(t.getMessage());
+                    }
+                });
     }
 
     /**
@@ -119,6 +150,10 @@ public class LoginViewModel extends BaseViewModel<LoginModel> implements SafetyH
             Toast.makeText(getApplication(), R.string.user_auth_tips_input_smscode, Toast.LENGTH_SHORT).show();
             return;
         }
+        if (TextUtils.isEmpty(verifyCode.get())) {
+            ToastUtil.showToast(getString(R.string.user_auth_tips_input_smscode));
+            return;
+        }
 
         // 收起软键盘
         if (!isAgreementsChecked.get()) {
@@ -126,15 +161,31 @@ public class LoginViewModel extends BaseViewModel<LoginModel> implements SafetyH
             Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT).show();
             return;
         }
-        // 省略网络请求
-        loading.setValue(true);
-        hideSoftInput.setValue(true);
-        handler.postDelayed(() -> {
-            loading.setValue(false);
-            Toast.makeText(getApplication(), phoneNum.get() + " " + getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-            finish.setValue(true);
-        }, 1200);
+        getModel()
+                .loginWithQuick(phone, verifyCode.get())
+                .subscribe(new BaseObserver<ResponseEntity<LoginRecord>>() {
+                    @Override
+                    protected void onStart() {
+                        super.onStart();
+                        loading.setValue(true);
+                    }
+                    @Override
+                    protected void doOnNext(@NonNull ResponseEntity<LoginRecord> entity) {
+                        loading.setValue(false);
+                        if (entity.isSuccessful()) {
+                            ToastUtil.showToast(phoneNum.get() + " " + getString(R.string.login_successful));
+                            finish.setValue(true);
+                        } else {
+                            ToastUtil.showToast(entity.getDesc());
+                        }
+                    }
 
+                    @Override
+                    protected void doOnError(@NonNull Throwable t) {
+                        loading.setValue(false);
+                        ToastUtil.showToast(t.getMessage());
+                    }
+                });
     }
 
     @Override

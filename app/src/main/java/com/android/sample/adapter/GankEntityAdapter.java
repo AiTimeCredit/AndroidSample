@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.android.sample.R;
 import com.android.common.entity.GankEntity;
 import com.android.common.utils.Utility;
-import com.android.sample.ui.picture.PictureActivity;
+import com.android.sample.PictureActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

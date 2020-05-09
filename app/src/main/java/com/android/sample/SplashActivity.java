@@ -1,10 +1,13 @@
 package com.android.sample;
 
+import android.content.Intent;
 import android.os.Message;
 import android.view.View;
 
 import com.android.common.base.BaseActivity;
 import com.android.common.entity.UIOptions;
+import com.android.common.utils.Constants;
+import com.android.common.utils.PermissionUtil;
 import com.android.common.utils.SafetyHandler;
 import com.android.sample.utils.MainHelper;
 
@@ -69,12 +72,13 @@ public class SplashActivity extends BaseActivity implements SafetyHandler.Delega
     }
 
     private void handleJumpMain() {
-//        boolean hasPermissions = PermissionUtil.hasPermissions(getContext(), Constants.PERMISSIONS);
-//        if (!hasPermissions) {
-//            PermissionActivity.startActivity(getContext());
-//            return;
-//        }
-//        MainHelper.start();
+        boolean hasPermissions = PermissionUtil.hasPermissions(getContext(), Constants.PERMISSIONS);
+        if (!hasPermissions) {
+            Intent intent = new Intent(getContext(), PermissionActivity.class);
+            startActivity(intent);
+            return;
+        }
+        MainHelper.start();
         MainHelper.gotoMainActivity(getContext());
     }
 

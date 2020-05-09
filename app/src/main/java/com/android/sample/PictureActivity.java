@@ -1,4 +1,4 @@
-package com.android.sample.ui.picture;
+package com.android.sample;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,7 +15,6 @@ import com.android.common.base.BaseActivity;
 import com.android.common.http.BaseObserver;
 import com.android.common.http.ObservableTransformerAsync;
 import com.android.common.utils.Utility;
-import com.android.sample.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

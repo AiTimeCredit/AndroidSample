@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/PermissionInfoContainer"
+                android:layout_marginTop="0dp">
+
+                <TextView
+                    style="@style/PermissionInfoTitle"
+                    android:text="@string/permission_start_title" />
+
+                <TextView
+                    style="@style/PermissionInfoExplanation"
+                    android:text="@string/permission_start_desc" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/PermissionInfoContainer">
+
+                <TextView
+                    style="@style/PermissionInfoTitle"
+                    android:text="@string/permission_phone_title" />
+
+                <TextView
+                    style="@style/PermissionInfoExplanation"
+                    android:text="@string/permission_phone_desc" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/PermissionInfoContainer">
+
+                <TextView
+                    style="@style/PermissionInfoTitle"
+                    android:text="@string/permission_contacts_title" />
+
+                <TextView
+                    style="@style/PermissionInfoExplanation"
+                    android:text="@string/permission_contacts_desc" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/PermissionInfoContainer">
+
+                <TextView
+                    style="@style/PermissionInfoTitle"
+                    android:text="@string/permission_location_title" />
+
+                <TextView
+                    style="@style/PermissionInfoExplanation"
+                    android:text="@string/permission_location_desc" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/PermissionInfoContainer">
+
+                <TextView
+                    style="@style/PermissionInfoTitle"
+                    android:text="@string/permission_others_title" />
+
+                <TextView
+                    style="@style/PermissionInfoExplanation"
+                    android:text="@string/permission_others_desc" />
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/PermissionInfoContainer">
+
+                <TextView
+                    style="@style/PermissionInfoExplanation"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/permission_end_desc" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_permission_agree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="45dp"
+        android:background="@drawable/selector_submit_button_round"
+        android:text="@string/agree"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

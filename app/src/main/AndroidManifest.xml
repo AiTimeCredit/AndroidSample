@@ -81,6 +81,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".PermissionActivity"
+            android:launchMode="singleTask" />
+        <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" />
         <activity
@@ -88,7 +91,7 @@
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".ui.picture.PictureActivity"
+            android:name=".PictureActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <provider

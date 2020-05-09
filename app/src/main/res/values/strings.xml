@@ -6,6 +6,24 @@
     <string name="title_mvvm">MVVM</string>
     <string name="title_databinding">DataBinding</string>
 
+    <string name="agree">I, Agree</string>
+    <!-- 权限说明 -->
+    <string name="permission_dialog_message_start_up">Device information, storage space, and camera permissions are required to use the full service</string>
+    <string name="permission_dialog_tips">Please click \"Setting\" Set permissions manually to allow</string>
+    <string name="permission_request_canceled">Permission request canceled</string>
+    <string name="permission_start_title">Hi there,</string>
+    <string name="permission_start_desc">To assess your eligibility and facilitate fast disbursement of your loan application, we need permissions to access your Phone, Location and Contacts.</string>
+    <string name="permission_phone_title">Phone</string>
+    <string name="permission_phone_desc">Collect and monitor specific information about your device including your hardware model, operating system and version, unique device identifier, user profile information, wi-fi information, mobile network information to uniquely identify the devices and ensure that unauthorised devices are not able to act on your behalf helping us to prevent frauds.</string>
+    <string name="permission_contacts_title">Contacts</string>
+    <string name="permission_contacts_desc">Collect contacts information to detect references and to auto fill data during loan application process.</string>
+    <string name="permission_location_title">Location</string>
+    <string name="permission_location_desc">Collect information about the location of your device to provide serviceability of your loan application, reduce risks associated with your application and also provide customised offers.</string>
+    <string name="permission_others_title">Others</string>
+    <string name="permission_others_desc">Allow camera to capture images of documents and pictures of yourself for loan application. Allow storage to upload documents and pictures for loan application. Allow the application to collect a list of installed apps in your device for credit profile enrichment.</string>
+    <string name="permission_end_desc">By continuing you agree to our Privacy Policy <![CDATA[&]]> Terms of Services and receive communication from APP via SMS, E-Mail and WhatsApp.</string>
+
+
     <string name="agreement_login">Terms of service</string>
     <string name="agreement_privacy">Privacy policy</string>
     <string name="agreement_message">Please read and agree&#160;</string>

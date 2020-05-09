@@ -25,7 +25,7 @@ public class ReflexUtil {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> Class<T> getTargetClass(@NonNull Object object, @NonNull Class<T> clazz) {
+    public static <T> Class<T> getTargetClass(@NonNull Object object, @NonNull Class<T> clazz) {
         try {
             Class<T> target = null;
             Type genericSuperclass = object.getClass().getGenericSuperclass();

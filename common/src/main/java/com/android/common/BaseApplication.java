@@ -9,10 +9,8 @@ import android.text.TextUtils;
 import android.webkit.WebView;
 
 import com.android.common.utils.Utility;
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.FormatStrategy;
-import com.orhanobut.logger.Logger;
-import com.orhanobut.logger.PrettyFormatStrategy;
+import com.henley.logger.Logger;
+import com.henley.logger.printer.LogcatPrinter;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDex;
@@ -46,7 +44,7 @@ public class BaseApplication extends Application {
         RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) {
-                Logger.e(throwable, "");
+                Logger.e(TAG, throwable, "");
             }
         });
     }
@@ -87,7 +85,7 @@ public class BaseApplication extends Application {
         initLogger();                           // 初始化日志输出
         initARouter();                          // 初始化路由
         String processName = Utility.getProcessName(this, Process.myPid());
-        Logger.i("当前进程为：" + processName);
+        Logger.i(TAG, "当前进程为：" + processName);
         initWebView(processName);               // 初始化WebView
         regisiterActivityLifecycle();           // 注册Activity生命周期监听
     }
@@ -102,13 +100,12 @@ public class BaseApplication extends Application {
      * 初始化日志输出
      */
     protected void initLogger() {
-        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
-                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
-                .methodCount(0)         // (Optional) How many method line to show. Default 2
-                .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
-                .tag("TAG")             // (Optional) Global tag for every log. Default PRETTY_LOGGER
-                .build();
-        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+        Logger.getLogConfig()
+                .setLogEnabled(isDebugModel)
+                .setShowMethodInfo(true)
+                .setShowThreadInfo(false);
+        Logger.addPrinter(new LogcatPrinter(false));
+        // Logger.addPrinter(new FilePrinter(this));
     }
 
     /**

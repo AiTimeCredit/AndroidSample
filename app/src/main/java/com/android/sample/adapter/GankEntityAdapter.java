@@ -96,7 +96,7 @@ public class GankEntityAdapter extends RecyclerView.Adapter<GankEntityAdapter.Ga
                 });
         holder.itemView.setOnClickListener(v -> {
             if (context instanceof Activity) {
-                PictureActivity.startActivity((Activity) context, data.getUrl(), ivPicture);
+                PictureActivity.startActivity((Activity) context, data.getPublishedTime(), data.getUrl(), ivPicture);
             }
         });
     }
@@ -106,11 +106,12 @@ public class GankEntityAdapter extends RecyclerView.Adapter<GankEntityAdapter.Ga
         private final TextView tvDate;
         private final ImageView ivPicture;
 
-        public GankEntityViewHolder(@NonNull View itemView) {
+        GankEntityViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.gank_data_date);
             ivPicture = itemView.findViewById(R.id.gank_data_picture);
         }
+
     }
 
 }

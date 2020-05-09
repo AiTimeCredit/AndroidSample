@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -12,6 +12,7 @@
         <!-- ActionBar高度 -->
         <item name="actionBarSize">@dimen/actionBarSize</item>
         <item name="android:actionBarSize">@dimen/actionBarSize</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
 </resources>

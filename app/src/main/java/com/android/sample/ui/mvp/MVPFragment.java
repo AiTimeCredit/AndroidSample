@@ -1,40 +1,47 @@
 package com.android.sample.ui.mvp;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.sample.R;
-import com.android.sample.adapter.GankEntityAdapter;
+import com.android.common.base.BaseFragment;
 import com.android.common.entity.BannerInfo;
 import com.android.common.entity.GankEntity;
 import com.android.common.http.ResponseEntity;
 import com.android.common.utils.SpaceDividerItemDecoration;
 import com.android.common.utils.Utility;
+import com.android.sample.R;
+import com.android.sample.adapter.GankEntityAdapter;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
-public class MVPFragment extends Fragment implements GankDataContract.View {
+public class MVPFragment extends BaseFragment implements GankDataContract.View {
 
     private BGABanner banner;
     private GankEntityAdapter mAdapter;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_mvp, container, false);
+    @Override
+    public int getContentLayoutId() {
+        return R.layout.fragment_mvp;
+    }
+
+    @Override
+    public int getViewModelVariableId() {
+        return 0;
+    }
+
+    @Override
+    public void initViews(@NonNull View rootView) {
         GankDataPresenter presenter = new GankDataPresenter();
         presenter.attachView(this);
 
-        banner = root.findViewById(R.id.banner_content);
+        banner = rootView.findViewById(R.id.banner_content);
         banner.setAdapter((BGABanner.Adapter<ImageView, BannerInfo>) (banner, itemView, model, position) ->
                 Glide.with(MVPFragment.this)
                         .load(model == null ? null : model.getImage())
@@ -47,7 +54,7 @@ public class MVPFragment extends Fragment implements GankDataContract.View {
         );
 
         mAdapter = new GankEntityAdapter();
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(
                 2, StaggeredGridLayoutManager.VERTICAL
@@ -60,7 +67,6 @@ public class MVPFragment extends Fragment implements GankDataContract.View {
 
         presenter.getGankBanners();
         presenter.getGankCategoryDatas(1, 20);
-        return root;
     }
 
     @Override

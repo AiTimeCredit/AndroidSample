@@ -1,36 +1,38 @@
 package com.android.sample.ui.mvvm;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.sample.R;
-import com.android.sample.adapter.GankEntityAdapter;
+import com.android.common.base.BaseFragment;
 import com.android.common.entity.BannerInfo;
 import com.android.common.utils.SpaceDividerItemDecoration;
 import com.android.common.utils.Utility;
+import com.android.sample.R;
+import com.android.sample.adapter.GankEntityAdapter;
 import com.bumptech.glide.Glide;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
-public class MVVMFragment extends Fragment {
+public class MVVMFragment extends BaseFragment<ViewDataBinding, GankDataViewModel> {
 
-    private GankDataViewModel viewModel;
+    @Override
+    public int getContentLayoutId() {
+        return R.layout.fragment_mvvm;
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(GankDataViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_mvvm, container, false);
-        BGABanner banner = root.findViewById(R.id.banner_content);
+    @Override
+    public int getViewModelVariableId() {
+        return 0;
+    }
+
+    @Override
+    public void initViews(@NonNull View rootView) {
+        BGABanner banner = rootView.findViewById(R.id.banner_content);
         banner.setAdapter((BGABanner.Adapter<ImageView, BannerInfo>) (bgaBanner, itemView, model, position) ->
                 Glide.with(MVVMFragment.this)
                         .load(model == null ? null : model.getImage())
@@ -43,7 +45,7 @@ public class MVVMFragment extends Fragment {
         );
 
         GankEntityAdapter adapter = new GankEntityAdapter();
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(
                 2, StaggeredGridLayoutManager.VERTICAL
@@ -54,20 +56,17 @@ public class MVVMFragment extends Fragment {
         ));
         recyclerView.setAdapter(adapter);
 
-        viewModel.banners.observe(getViewLifecycleOwner(), datas -> banner.setData(datas, null));
-        viewModel.datas.observe(getViewLifecycleOwner(), adapter::refresh);
+        getViewModel().banners.observe(getViewLifecycleOwner(), datas -> banner.setData(datas, null));
+        getViewModel().datas.observe(getViewLifecycleOwner(), adapter::refresh);
 
-        viewModel.getGankBanners();
-        viewModel.getGankCategoryDatas(1, 20);
-        return root;
+        loadData();
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (viewModel != null) {
-            viewModel.onActivityResult(requestCode, resultCode, data);
-        }
+    public void loadData() {
+        super.loadData();
+        getViewModel().getGankBanners();
+        getViewModel().getGankCategoryDatas(1, 20);
     }
 
 }

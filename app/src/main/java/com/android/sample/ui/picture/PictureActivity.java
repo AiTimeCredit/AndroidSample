@@ -3,17 +3,15 @@ package com.android.sample.ui.picture;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.android.common.base.BaseActivity;
 import com.android.common.http.BaseObserver;
 import com.android.common.http.ObservableTransformerAsync;
 import com.android.common.utils.Utility;
@@ -33,10 +31,7 @@ import java.io.FileOutputStream;
 import java.security.NoSuchAlgorithmException;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
@@ -44,16 +39,19 @@ import io.reactivex.functions.Function;
 /**
  * 图片预览页面
  */
-public class PictureActivity extends AppCompatActivity {
+public class PictureActivity extends BaseActivity {
 
     public static final String IMAGE_TRANSITION_NAME = "imageTransitionName";
+    private static final String IMAGE_TITLE = "image_title";
     private static final String IMAGE_URL = "image_url";
     private String mUrl;
+    private String mTitle;
     private PhotoView ivPicture;
 
-    public static void startActivity(Activity activity, String url, View sharedElement) {
+    public static void startActivity(Activity activity, String title, String url, View sharedElement) {
         Intent intent = new Intent(activity, PictureActivity.class);
         intent.putExtra(IMAGE_URL, url);
+        intent.putExtra(IMAGE_TITLE, title);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (sharedElement != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             sharedElement.setTransitionName(IMAGE_TRANSITION_NAME);
@@ -64,16 +62,29 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public CharSequence title() {
+        return mTitle;
+    }
+
+    @Override
+    public int getContentLayoutId() {
+        return R.layout.activity_picture;
+    }
+
+    @Override
+    public int getViewModelVariableId() {
+        return 0;
+    }
+
+    @Override
+    public void handleIntent(@NonNull Intent intent) {
+        super.handleIntent(intent);
+        mTitle = getIntent().getStringExtra(IMAGE_TITLE);
         mUrl = getIntent().getStringExtra(IMAGE_URL);
-        setContentView(R.layout.activity_picture);
+    }
 
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
+    @Override
+    public void initViews(@NonNull View rootView) {
         ivPicture = findViewById(R.id.iv_picture);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ivPicture.setTransitionName(IMAGE_TRANSITION_NAME);
@@ -104,27 +115,18 @@ public class PictureActivity extends AppCompatActivity {
                 .into(ivPicture);
     }
 
-    private Context getContext() {
-        return this;
+    @Override
+    public int getMenuRes() {
+        return R.menu.menu_picture;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_picture, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            finish();
-            return true;
-        } else if (itemId == R.id.download || itemId == R.id.share) {
+    protected boolean onMenuItemSelected(MenuItem menuItem, int itemId) {
+        if (itemId == R.id.download || itemId == R.id.share) {
             chechPermission(itemId);
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return super.onMenuItemSelected(menuItem, itemId);
     }
 
     private void chechPermission(final int itemId) {
@@ -226,7 +228,7 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackClick() {
         if (ivPicture != null) {
             if (ivPicture.getScale() > 1) {
                 ivPicture.setScale(1);
@@ -236,7 +238,7 @@ public class PictureActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAfterTransition();
         } else {
-            super.onBackPressed();
+            super.onBackClick();
         }
     }
 

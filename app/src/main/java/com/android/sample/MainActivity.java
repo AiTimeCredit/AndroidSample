@@ -1,28 +1,54 @@
 package com.android.sample;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.android.common.base.BaseActivity;
+import com.android.common.entity.UIOptions;
+import com.android.common.mvvm.EmptyViewModel;
 import com.android.common.receiver.NetStateChangedReceiver;
+import com.android.sample.databinding.ActivityMainBinding;
 import com.android.sample.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements NetStateChangedReceiver.NetStateChangedObserver  {
+public class MainActivity extends BaseActivity<ActivityMainBinding, EmptyViewModel> implements NetStateChangedReceiver.NetStateChangedObserver {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public CharSequence title() {
+        return getString(R.string.app_name);
+    }
+
+    @Override
+    public int getContentLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public int getViewModelVariableId() {
+        return 0;
+    }
+
+    @Override
+    public int getMenuRes() {
+        return R.menu.menu_login;
+    }
+
+    @Override
+    public void initUIOptions(@NonNull UIOptions options) {
+        super.initUIOptions(options);
+        options.setHideToolbar(false);
+    }
+
+    @Override
+    public void initViews(@NonNull View rootView) {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -38,19 +64,13 @@ public class MainActivity extends AppCompatActivity implements NetStateChangedRe
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.login) {
-            Intent intent = new Intent(this, LoginActivity.class);
+    protected boolean onMenuItemSelected(MenuItem menuItem, int itemId) {
+        if (itemId == R.id.login) {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
             return true;
         }
-        return super.onOptionsItemSelected(item);
+        return super.onMenuItemSelected(menuItem, itemId);
     }
 
     @Override

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.orhanobut.logger.Logger;
+import com.henley.logger.Logger;
 
 import java.util.TreeSet;
 
@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 public class SampleActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
 
     private static final String TAG = "ActivityLifecycleCallbacks";
-
     /**
      * 回到后台的时间戳
      */
@@ -35,19 +34,19 @@ public class SampleActivityLifecycleCallbacks implements Application.ActivityLif
     private TreeSet<String> treeSet = new TreeSet<>();
 
     @Override
-    public void onActivityCreated(@NonNull Activity activity, Bundle savedInstanceState) {
-        logInfo(activity.getClass().getName() + " Created!");
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        Logger.i(TAG, activity.getClass().getName() + " Created!");
         treeSet.add(activity.getClass().getName());
     }
 
     @Override
-    public void onActivityStarted(@NonNull Activity activity) {
-        logInfo(activity.getClass().getName() + " Started!");
+    public void onActivityStarted(Activity activity) {
+        Logger.i(TAG, activity.getClass().getName() + " Started!");
         if (activityCount == 0) {
-            logInfo("App切到前台...");
+            Logger.i(TAG, "App切到前台...");
             if (backgroundStamp > 0) {
                 long timeInterval = System.currentTimeMillis() - backgroundStamp;
-                logInfo("App在后台停留时间为：" + timeInterval + " ms");
+                Logger.i(TAG, "App在后台停留时间为：" + timeInterval + " ms");
             }
             executeTaskFromBackground();
         }
@@ -55,21 +54,21 @@ public class SampleActivityLifecycleCallbacks implements Application.ActivityLif
     }
 
     @Override
-    public void onActivityResumed(@NonNull Activity activity) {
-        logInfo(activity.getClass().getName() + " Resumed!");
+    public void onActivityResumed(Activity activity) {
+        Logger.i(TAG, activity.getClass().getName() + " Resumed!");
     }
 
     @Override
-    public void onActivityPaused(@NonNull Activity activity) {
-        logInfo(activity.getClass().getName() + " Paused!");
+    public void onActivityPaused(Activity activity) {
+        Logger.i(TAG, activity.getClass().getName() + " Paused!");
     }
 
     @Override
-    public void onActivityStopped(@NonNull Activity activity) {
-        logInfo(activity.getClass().getName() + " Stopped!");
+    public void onActivityStopped(Activity activity) {
+        Logger.i(TAG, activity.getClass().getName() + " Stopped!");
         activityCount--;
         if (activityCount == 0) {
-            logInfo("App切到后台...");
+            Logger.i(TAG, "App切到后台...");
             backgroundStamp = System.currentTimeMillis();
         }
     }
@@ -80,8 +79,8 @@ public class SampleActivityLifecycleCallbacks implements Application.ActivityLif
     }
 
     @Override
-    public void onActivityDestroyed(@NonNull Activity activity) {
-        logInfo(activity.getClass().getName() + " Destroyed!");
+    public void onActivityDestroyed(Activity activity) {
+        Logger.i(TAG, activity.getClass().getName() + " Destroyed!");
         treeSet.remove(activity.getClass().getName());
         if (treeSet.isEmpty()) {
             isFirstFromBackground = true;
@@ -110,11 +109,7 @@ public class SampleActivityLifecycleCallbacks implements Application.ActivityLif
             isFirstFromBackground = false;
             return;
         }
-        logInfo("执行从后台切到前台的任务...");
-    }
-
-    private void logInfo(String message) {
-        Logger.log(Logger.INFO, TAG, message, null);
+        Logger.i(TAG, "执行从后台切到前台的任务...");
     }
 
 }

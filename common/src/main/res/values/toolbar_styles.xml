@@ -1,0 +1,62 @@
+<resources>
+
+    <!-- ToolBar样式-->
+    <style name="ToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:minWidth">@dimen/actionBarSize</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimaryInverse">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="titleTextAppearance">@style/ToolbarTitleStyle</item>
+        <item name="subtitleTextAppearance">@style/ToolbarSubtitleStyle</item>
+        <item name="actionMenuTextAppearance">@style/ToolbarMenuStyle</item>
+        <item name="actionOverflowMenuStyle">@style/ToolBar.OverflowMenu.Style</item>
+    </style>
+
+    <!-- 左边指示箭头样式-->
+    <style name="ToolBar.DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/white</item>
+    </style>
+
+    <!--溢出菜单样式 -->
+    <style name="ToolBar.OverflowMenu.Style" parent="@style/Widget.AppCompat.Light.PopupMenu.Overflow">
+        <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <!-- 弹出层背景颜色 -->
+        <item name="android:popupBackground">@android:color/white</item>
+        <!-- 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar -->
+        <item name="android:dropDownVerticalOffset">0dp</item>
+        <!-- 弹出层水平方向上的偏移，即距离屏幕左边的距离，负值会导致右边出现空隙 -->
+        <item name="android:dropDownHorizontalOffset">0dp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!--溢出菜单文字样式-->
+    <style name="ToolBar.OverflowMenuTextStyle" parent="@style/TextAppearance.AppCompat.Widget.PopupMenu.Large">
+        <item name="android:textColor">@android:color/holo_blue_bright</item>
+    </style>
+
+    <style name="ToolbarTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ToolbarSubtitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ToolbarMenuStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+</resources>

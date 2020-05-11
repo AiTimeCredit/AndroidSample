@@ -20,6 +20,9 @@ Android demo
 ## Android 框架
 ### Jetpack
  - [Jetpack](https://developer.android.com/jetpack)
+ 
+### AiTime
+ - [AiTime](https://bintray.com/beta/#/aitime/maven/)
 
 ### 异步
  - [Rxjava](https://github.com/ReactiveX/RxJava)
